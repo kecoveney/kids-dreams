@@ -1,33 +1,36 @@
-import { getChildren } from "./database.js"
+    import { getChildren, getCelebrities } from "./database.js"
 
-const kids = getChildren()
-const celebrities = getCelebrities()
+    const kids = getChildren();
+    const celebrities = getCelebrities();
 
-const findCelebrityMatch = (kidObject, celebrityArray) => {
-    let celebrity = null
+    const findCelebrityMatch = (kid, celebrities) => {
+        let matchedCelebrity = null;
+    
+        for (const celebrity of celebrities) {
+            if (celebrity.id === kid.celebrityId) {
+                matchedCelebrity = celebrity; // Assign the matched celebrity, not the entire celebrities array
+                break; // Once matched, no need to continue the loop
+            }
+        }
+    
+        return matchedCelebrity;
+    };
 
-    for (const celebrity of celebrtyArray) {
+    export const Pairings = () => {
+        let html = ""
+        html = "<ul>"
 
+        for (const kid of kids) {
+            const kidsStar = findCelebrityMatch(kid, celebrities)
+            html += `
+                <li>
+                    ${kid.name} will be making memories with ${kidsStar.name}, a ${kidsStar.sport} star, by ${kid.wish}
+                </li>
+            `
+        }
+
+        html += "</ul>"
+
+        return html
     }
-
-    return celebritiy
-}
-
-export const Pairings = () => {
-    let html = ""
-    html = "<ul>"
-
-    for (const kid of kids) {
-        const kidsStar = findCelebrityMatch(kid, celebrities)
-        html += `
-            <li>
-                ${kid.name} will be making memories with ${kidsStar.name}, a ${kidsStar.Sport} star, by ${kid.wish}
-            </li>
-        `
-    }
-
-    html += "</ul>"
-
-    return html
-}
 
