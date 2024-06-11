@@ -19,3 +19,17 @@ export const Celebrities = () => {
     html += "</ol>"
     return html
 }
+
+document.addEventListener(
+    "click",
+    (clickEvent) =>{
+        const targetedClick = clickEvent.target;
+        if (targetedClick.dataset.type === "celebrity") {
+            const celebId = parseInt(targetedClick.dataset.id);
+            const celeb = celebrities.find(celeb => celeb.id === celebId);
+            if (celeb) {
+                window.alert(`${celeb.name} is a ${celeb.sport} star`);
+            }
+        }
+    }
+)
